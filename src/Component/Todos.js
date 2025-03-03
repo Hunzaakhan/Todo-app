@@ -65,7 +65,7 @@ setItem(data[index]);
 
     return (
         <div className='container mt-5'>
-            <div className='input-group mb-3'>
+            <div className='input-group mb-3 table-responsive'>
                 <input type="text" 
                 placeholder='Enter your task'
                 className="form-control"
@@ -80,6 +80,9 @@ setItem(data[index]);
 
             </div>
           
+
+<div className='table-responsive'>
+
 
 
             <ul className="list-group">
@@ -97,7 +100,7 @@ setItem(data[index]);
                     </li>
                 ))}
             </ul>
-
+    </div>
 
 
             
