@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const Todos = () => {
     const [item, setItem] = useState("")
@@ -9,12 +9,20 @@ const Todos = () => {
  
     const get = (event) => {
 
+       
+    
         setItem(event.target.value)
 
 
     }
 
     const getData = () => {
+
+    if(item.trim() === ""){
+
+        alert("please enter a task ")
+        return;
+    }
 
         if (editing) {
             
@@ -27,8 +35,8 @@ const Todos = () => {
             setEditIndex(null);
         }else{
 
-            let store = [...data, item]
-            setData(store)
+            setData([...data, item]) 
+            
            
 
 
@@ -38,7 +46,7 @@ const Todos = () => {
 
 
     }
-    const deletTask = (index) => {
+    const deleteTask = (index) => {
 
         let filterdata = data.filter((curElm, id) => {
             return id !== index
@@ -56,29 +64,43 @@ setItem(data[index]);
 }
 
     return (
-        <div className='container'>
-            <div className='task-input'>
-                <input type="text" placeholder='Enter your task' value={item} onChange={get} />
-                <button onClick={getData}>
+        <div className='container mt-5'>
+            <div className='input-group mb-3'>
+                <input type="text" 
+                placeholder='Enter your task'
+                className="form-control"
+                 value={item} 
+                 onChange={get}
+                 style={{ whiteSpace: 'nowrap', overflowX: 'auto' }}
+                 />
+                <button   className="btn btn-primary" onClick={getData}>
 
                 {editing ? "Update Task" : "Add Task"}
                     </button>
 
             </div>
-            {data.map((curVal, index) => {
-
-                return <>
-
-                    <div className="taskData">
-                        <p>{curVal}</p>
-                        <i id="editicon" onClick={() => editTask(index)} className="fa-solid fa-pen"></i>
-                        <i id="dlticon" onClick={() => deletTask(index)} class="fa-solid fa-trash"></i>
+          
 
 
-                    </div>
-                </>
+            <ul className="list-group">
+                {data.map((curVal, index) => (
+                    <li key={index} className="list-group-item d-flex justify-content-between align-items-center">
+                        <span>{curVal}</span>
+                        <div>
+                            <button className="btn btn-sm btn-warning me-2" onClick={() => editTask(index)}>
+                                Edit
+                            </button>
+                            <button className="btn btn-sm btn-danger" onClick={() => deleteTask(index)}>
+                                Delete
+                            </button>
+                        </div>
+                    </li>
+                ))}
+            </ul>
 
-            })}
+
+
+            
         </div>
     )
 }
